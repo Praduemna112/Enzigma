@@ -1,12 +1,24 @@
 <div>
   <h1>Task List</h1>
+
+ 
   <input [(ngModel)]="newTask" placeholder="New task" />
   <button (click)="addTask()">Add Task</button>
 
+
   <ul>
     <li *ngFor="let task of tasks">
-      {{ task.name }}
-      <button (click)="deleteTask(task._id)">Delete</button>
+      <div *ngIf="editTaskId !== task._id">
+        {{ task.title }}
+        <button (click)="enableEdit(task)">Edit</button>
+        <button (click)="deleteTask(task._id)">Delete</button>
+      </div>
+
+      <div *ngIf="editTaskId === task._id">
+        <input [(ngModel)]="editedTaskTitle" />
+        <button (click)="updateTask(task)">Save</button>
+        <button (click)="cancelEdit()">Cancel</button>
+      </div>
     </li>
   </ul>
 </div>
